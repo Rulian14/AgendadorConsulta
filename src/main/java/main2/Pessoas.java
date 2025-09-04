@@ -1,9 +1,9 @@
-package AgendadorConsulta;
+package main2;
 
 public class Pessoas {
 	private String nome;
 	private String cpf;
-	private String email;
+	private String email; 
 	private String telefone;
 	public Pessoas(String nome, String cpf, String email, String telefone) {
 		super();

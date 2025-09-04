@@ -1,4 +1,4 @@
-package AgendadorConsulta;
+package main2;
 
 public class Pacientes extends Pessoas {
 	private StringBuilder historico = new StringBuilder();

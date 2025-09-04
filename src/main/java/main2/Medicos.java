@@ -1,4 +1,4 @@
-package AgendadorConsulta;
+package main2;
 
 public class Medicos extends Pessoas {
 

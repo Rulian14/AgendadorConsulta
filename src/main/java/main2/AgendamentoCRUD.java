@@ -1,5 +1,7 @@
-package AgendadorConsulta;
-import java.util.*;
+package main2;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
 
 public class AgendamentoCRUD {
 	
@@ -106,7 +108,8 @@ public class AgendamentoCRUD {
 				System.out.println("Saindo...");
 				break;
 			case 6:
-				Excel.gerar(Consulta);
+    			Excel.gerar(Consulta, sc);
+   				break;
 			default:
 				System.out.println("Informe um valor válido!");
 			}

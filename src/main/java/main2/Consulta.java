@@ -1,4 +1,4 @@
-package AgendadorConsulta;
+package main2;
 
 public class Consulta {
     private String dataHora;
