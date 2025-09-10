@@ -67,10 +67,8 @@ public class AgendamentoCRUD {
             System.out.print("Digite o telefone (apenas números, 9 a 11 dígitos): ");
             String telefone = sc.nextLine();
 
-            System.out.print("Digite o email: ");
-            String email = sc.nextLine();
 
-            if (nome.trim().isEmpty() || cpf.trim().isEmpty() || telefone.trim().isEmpty() || email.trim().isEmpty()) {
+            if (nome.trim().isEmpty() || cpf.trim().isEmpty() || telefone.trim().isEmpty()) {
                 throw new IllegalArgumentException("Todos os campos devem ser preenchidos.");
             }
 
@@ -88,11 +86,11 @@ public class AgendamentoCRUD {
                 }
             }
 
-            Consulta.add(new Pessoas(nome, cpf, email, telefone));
-            System.out.println("✅ Pessoa adicionada com sucesso!");
+            Consulta.add(new Pessoas(nome ,cpf ,telefone));
+            System.out.println("Pessoa adicionada com sucesso!");
 
         } catch (IllegalArgumentException | IllegalStateException e) {
-            System.err.println("❌ Erro: " + e.getMessage());
+            System.err.println("Erro: " + e.getMessage());
         }
     }
 
@@ -111,8 +109,7 @@ public class AgendamentoCRUD {
                     System.out.println("-----------------------");
                     System.out.println("O que você gostaria de editar?");
                     System.out.println("1 - Telefone");
-                    System.out.println("2 - E-mail");
-                    System.out.println("3 - Voltar");
+                    System.out.println("2 - Voltar");
                     System.out.println("-----------------------");
 
                     int opcaoEdicao = sc.nextInt();
@@ -125,26 +122,21 @@ public class AgendamentoCRUD {
                             p1.setTelefone(newTel);
                             System.out.println("✅ Telefone atualizado com sucesso!");
                             break;
+
                         case 2:
-                            System.out.print("Novo E-mail: ");
-                            String newEmail = sc.nextLine();
-                            p1.setEmail(newEmail);
-                            System.out.println("✅ E-mail atualizado com sucesso!");
-                            break;
-                        case 3:
                             System.out.println("Voltando ao menu principal...");
                             break;
                         default:
-                            System.err.println("❌ Opção inválida. Voltando ao menu.");
+                            System.err.println(" Opção inválida. Voltando ao menu.");
                     }
                     break;
                 }
             }
             if (!pessoaEncontrada) {
-                System.err.println("❌ Pessoa com CPF " + procurarCPF + " não encontrada.");
+                System.err.println(" Pessoa com CPF " + procurarCPF + " não encontrada.");
             }
         } catch (InputMismatchException e) {
-            System.err.println("❌ Erro: Entrada inválida. Por favor, digite um número para a opção de edição.");
+            System.err.println(" Erro: Entrada inválida. Por favor, digite um número para a opção de edição.");
             sc.nextLine();
         }
     }
@@ -152,7 +144,7 @@ public class AgendamentoCRUD {
     // Listar Pessoas
     public static void listarPessoa() {
         if (Consulta.isEmpty()) {
-            System.out.println("ℹ️ Nenhuma pessoa cadastrada.");
+            System.out.println(" Nenhuma pessoa cadastrada.");
         } else {
             System.out.println("--- Lista de Pessoas ---");
             for (Pessoas pessoa : Consulta) {
@@ -173,61 +165,16 @@ public class AgendamentoCRUD {
             Pessoas p1 = iterator.next();
             if (p1.getCpf().equals(removerCpf)) {
                 iterator.remove();
-                System.out.println("✅ Pessoa com CPF " + removerCpf + " removida.");
+                System.out.println(" Pessoa com CPF " + removerCpf + " removida.");
                 removido = true;
                 break;
             }
         }
         if (!removido) {
-            System.err.println("❌ Pessoa com CPF " + removerCpf + " não encontrada.");
+            System.err.println(" Pessoa com CPF " + removerCpf + " não encontrada.");
         }
     }
 
-    // Main
-    public static void main(String[] args) {
-        do {
-            System.out.println("\n--- Menu Principal ---");
-            System.out.println("1 - Adicionar Pessoa");
-            System.out.println("2 - Editar Pessoa");
-            System.out.println("3 - Listar Pessoas");
-            System.out.println("4 - Deletar Pessoa");
-            System.out.println("5 - Sair");
-            System.out.println("6 - Gerar Excel");
-            System.out.print("Escolha uma opção: ");
-
-            try {
-                opcao = sc.nextInt();
-                sc.nextLine();
-
-                switch (opcao) {
-                    case 1:
-                        criarPessoa();
-                        break;
-                    case 2:
-                        editarPessoa();
-                        break;
-                    case 3:
-                        listarPessoa();
-                        break;
-                    case 4:
-                        deletarPessoa();
-                        break;
-                    case 5:
-                        System.out.println("👋 Saindo do sistema...");
-                        break;
-                    case 6:
-                        Excel.gerar(Consulta, sc);
-                        break;
-                    default:
-                        System.err.println("❌ Opção inválida. Digite um número entre 1 e 6.");
-                }
-            } catch (InputMismatchException e) {
-                System.err.println("❌ Erro: Entrada inválida. Por favor, digite um número do menu.");
-                sc.nextLine();
-                opcao = 0;
-            }
-        } while (opcao != 5);
-        sc.close();
-    }
+   
 }
 

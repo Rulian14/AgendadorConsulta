@@ -3,13 +3,11 @@ package main2;
 public class Pessoas {
 	private String nome;
 	private String cpf;
-	private String email; 
 	private String telefone;
-	public Pessoas(String nome, String cpf, String email, String telefone) {
+	public Pessoas(String nome, String cpf, String telefone) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
-		this.email = email;
 		this.telefone = telefone;
 	}
 	public String getNome() {
@@ -17,12 +15,6 @@ public class Pessoas {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	public String getTelefone() {
 		return telefone;
@@ -39,7 +31,6 @@ public class Pessoas {
 	public void exibir() {
 		System.out.println("--------------------");
 		System.out.println("Nome da Pessoa: " + getNome());
-		System.out.println("Email: " + getEmail());
 		System.out.println("Telefone: " + getTelefone());
 		System.out.println("Cpf: " + getCpf());
 		System.out.println("--------------------");
