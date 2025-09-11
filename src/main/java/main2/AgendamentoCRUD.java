@@ -8,8 +8,9 @@ import java.util.Scanner;
 public class AgendamentoCRUD {
 
     static Scanner sc = new Scanner(System.in);
-    static ArrayList<Pessoas> Consulta = new ArrayList<>();
-    static int opcao;
+    static ArrayList<Pacientes> Consulta = new ArrayList<>();
+    
+    public static ArrayList<Consulta> listaConsultas = new ArrayList<>();
 
     // Validação de CPF
     public static boolean validarCpf(String cpf) {
@@ -55,44 +56,49 @@ public class AgendamentoCRUD {
     }
 
     // Criar Pessoa
-    public static void criarPessoa() {
-        try {
-            System.out.println("--- Adicionar Pessoa ---");
-            System.out.print("Digite o nome: ");
-            String nome = sc.nextLine();
+    public static Pacientes criarPessoa() {
+    try {
+        System.out.println("--- Adicionar Paciente ---");
+        System.out.print("Digite o nome: ");
+        String nome = sc.nextLine();
 
-            System.out.print("Digite o CPF (apenas números): ");
-            String cpf = sc.nextLine();
+        System.out.print("Digite o CPF (apenas números): ");
+        String cpf = sc.nextLine();
 
-            System.out.print("Digite o telefone (apenas números, 9 a 11 dígitos): ");
-            String telefone = sc.nextLine();
+        System.out.print("Digite o telefone (apenas números, 9 a 11 dígitos): ");
+        String telefone = sc.nextLine();
 
-
-            if (nome.trim().isEmpty() || cpf.trim().isEmpty() || telefone.trim().isEmpty()) {
-                throw new IllegalArgumentException("Todos os campos devem ser preenchidos.");
-            }
-
-            if (!telefone.matches("\\d{9,11}")) {
-                throw new IllegalArgumentException("O telefone deve conter apenas números, com 9 a 11 dígitos.");
-            }
-
-            if (!validarCpf(cpf)) {
-                throw new IllegalArgumentException("CPF inválido. Por favor, digite um CPF válido.");
-            }
-
-            for (Pessoas p : Consulta) {
-                if (p.getCpf().equals(cpf)) {
-                    throw new IllegalStateException("Já existe uma pessoa cadastrada com este CPF.");
-                }
-            }
-
-            Consulta.add(new Pessoas(nome ,cpf ,telefone));
-            System.out.println("Pessoa adicionada com sucesso!");
-
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            System.err.println("Erro: " + e.getMessage());
+        if (nome.trim().isEmpty() || cpf.trim().isEmpty() || telefone.trim().isEmpty()) {
+            throw new IllegalArgumentException("Todos os campos devem ser preenchidos.");
         }
+
+        if (!telefone.matches("\\d{9,11}")) {
+            throw new IllegalArgumentException("O telefone deve conter apenas números, com 9 a 11 dígitos.");
+        }
+
+        if (!validarCpf(cpf)) {
+            throw new IllegalArgumentException("CPF inválido. Por favor, digite um CPF válido.");
+        }
+
+        // Verificar se paciente já existe
+        for (Pacientes p : Consulta) {
+            if (p.getCpf().equals(cpf)) {
+                System.out.println("Paciente já cadastrado.");
+                return p; // retorna paciente existente
+            }
+        }
+
+        // Criar novo paciente
+        Pacientes novoPaciente = new Pacientes(nome, cpf, telefone);
+        Consulta.add(novoPaciente);
+        System.out.println("Paciente adicionado com sucesso!");
+        return novoPaciente;
+
+    } catch (IllegalArgumentException | IllegalStateException e) {
+        System.err.println("Erro: " + e.getMessage());
+        return null; // retorna null em caso de erro
     }
+}
 
     // Editar Pessoa
     public static void editarPessoa() {
@@ -102,7 +108,7 @@ public class AgendamentoCRUD {
             String procurarCPF = sc.nextLine();
 
             boolean pessoaEncontrada = false;
-            for (Pessoas p1 : Consulta) {
+            for (Pacientes p1 : Consulta) {
                 if (p1.getCpf().equals(procurarCPF)) {
                     pessoaEncontrada = true;
                     System.out.println("Pessoa encontrada: " + p1.getNome() + " | Telefone: " + p1.getTelefone());
@@ -147,7 +153,7 @@ public class AgendamentoCRUD {
             System.out.println(" Nenhuma pessoa cadastrada.");
         } else {
             System.out.println("--- Lista de Pessoas ---");
-            for (Pessoas pessoa : Consulta) {
+            for (Pacientes pessoa : Consulta) {
                 pessoa.exibir();
             }
         }
@@ -160,9 +166,9 @@ public class AgendamentoCRUD {
         String removerCpf = sc.nextLine();
 
         boolean removido = false;
-        Iterator<Pessoas> iterator = Consulta.iterator();
+        Iterator<Pacientes> iterator = Consulta.iterator();
         while (iterator.hasNext()) {
-            Pessoas p1 = iterator.next();
+            Pacientes p1 = iterator.next();
             if (p1.getCpf().equals(removerCpf)) {
                 iterator.remove();
                 System.out.println(" Pessoa com CPF " + removerCpf + " removida.");
