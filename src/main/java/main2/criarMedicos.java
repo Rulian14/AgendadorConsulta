@@ -1,5 +1,6 @@
 package main2;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
@@ -7,7 +8,21 @@ import java.util.Scanner;
 
 public class criarMedicos {
 	static ArrayList<Medicos> listaMedicos = new ArrayList<>();
-	static Scanner sc = new Scanner(System.in);		
+	static Scanner sc = new Scanner(System.in);	
+    
+    public static void criarPastaMedico(String nomeMedico) {
+        if (nomeMedico == null || nomeMedico.trim().isEmpty()) return;
+
+        File pasta = new File( "Dr " + nomeMedico);
+        if (!pasta.exists()) {
+            if (pasta.mkdir()) {
+                System.out.println("Pasta criada para o médico: " + nomeMedico);
+            } else {
+                System.err.println("Não foi possível criar a pasta para o médico: " + nomeMedico);
+            }
+        }
+    }
+    
     //CRiar Medico
 	public static void criarMedico() {
         try {
@@ -48,6 +63,7 @@ public class criarMedicos {
 
             listaMedicos.add(new Medicos(nome, cpf, telefone, CRM, especialidade));
             System.out.println("Medico adicionada com sucesso!");
+            criarPastaMedico(nome);
 
         } catch (IllegalArgumentException | IllegalStateException e) {
             System.err.println("Erro: " + e.getMessage());
@@ -64,7 +80,7 @@ public class criarMedicos {
             for (Medicos p1 : listaMedicos) {
                 if (p1.getCpf().equals(procurarCPF)) {
                     medicoEncontrada = true;
-                    System.out.println("Medico encontrada: " + p1.getNome() + " | Telefone: " + p1.getTelefone());
+                    System.out.println("Medico encontrado(a): " + p1.getNome() + " | Telefone: " + p1.getTelefone());
                     System.out.println("-----------------------");
                     System.out.println("O que você gostaria de editar?");
                     System.out.println("1 - Nome");

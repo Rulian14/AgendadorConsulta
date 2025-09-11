@@ -1,23 +1,29 @@
 package main2;
 
+import java.time.LocalDateTime;
+
 public class Consulta {
-    private String dataHora;
+  private LocalDateTime dataHora;
     private Pacientes paciente;  
     private Medicos medico;      
-    private String descricao;
-    private String status;
+    private StatusConsulta status;
 
-    public Consulta(String dataHora, Pacientes paciente, Medicos medico, String descricao, String status) {
+    public enum StatusConsulta {
+        AGENDADA,
+        REALIZADA,
+        CANCELADA
+    }
+
+    public Consulta(LocalDateTime  dataHora, Pacientes paciente, Medicos medico) {
         this.dataHora = dataHora;
         this.paciente = paciente;
         this.medico = medico;
-        this.descricao = descricao;
-        this.status = status;
+        this.status = StatusConsulta.AGENDADA;
     }
 
-    public String getDataHora() {return dataHora;}
+    public LocalDateTime getDataHora() {return dataHora;}
 
-    public void setDataHora(String dataHora) {this.dataHora = dataHora;}
+    public void setDataHora(LocalDateTime  dataHora) {this.dataHora = dataHora;}
 
     public Pacientes getPaciente() {return paciente;}
 
@@ -27,12 +33,8 @@ public class Consulta {
 
     public void setMedico(Medicos medico) {this.medico = medico;}
 
-    public String getDescricao() {return descricao;}
+    public StatusConsulta getStatus() { return status;}
 
-    public void setDescricao(String descricao) {this.descricao = descricao;}
-
-    public String getStatus() { return status;}
-
-    public void setStatus(String status) {this.status = status;}
+    public void setStatus(StatusConsulta status) {this.status = status;}
 
 }

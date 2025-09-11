@@ -6,5 +6,5 @@ main2\Excel.class
 main2\Medicos.class
 main2\Pacientes.class
 main2\Atendente.class
-main2\Agenda.class
+main2\Consulta$StatusConsulta.class
 main2\Pessoas.class
